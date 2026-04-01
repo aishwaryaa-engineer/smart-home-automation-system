@@ -10,7 +10,10 @@ Modern IoT-based application for controlling and monitoring home appliances remo
 
 DEMO VIDEO
 
-Screen recording of the system in action is provided above.
+## 🎥 Demo
+
+![Smart Home Preview](assets/demo.gif)
+
 
 What it does
 
