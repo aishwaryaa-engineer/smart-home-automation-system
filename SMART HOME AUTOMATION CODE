@@ -1,1 +1,58 @@
+#include "DHT.h"
+
+#define DHTPIN 2
+#define DHTTYPE DHT22
+
+DHT dht(DHTPIN, DHTTYPE);
+
+int ldrPin = A0;
+int ledPin = 7;
+int pirPin = 3;
+int buzzer = 8;
+
+void setup() {
+  pinMode(ledPin, OUTPUT);
+  pinMode(pirPin, INPUT);
+  pinMode(buzzer, OUTPUT);
+
+  Serial.begin(9600);
+  dht.begin();
+}
+
+void loop() {
+
+  // 🌙 LDR - Light Control
+  int light = analogRead(ldrPin);
+  Serial.print("Light: ");
+  Serial.println(light);
+
+  if (light < 500) {
+    digitalWrite(ledPin, HIGH); // LED ON (dark)
+  } else {
+    digitalWrite(ledPin, LOW); // LED OFF
+  }
+
+  // 🌡️ Temperature (DHT22)
+  float temp = dht.readTemperature();
+  Serial.print("Temp: ");
+  Serial.println(temp);
+
+  if (temp > 30) {
+    Serial.println("Fan ON (High Temp)");
+  }
+
+  // 🚶 PIR - Motion Detection
+  int motion = digitalRead(pirPin);
+  Serial.print("Motion: ");
+  Serial.println(motion);
+
+  if (motion == HIGH) {
+    digitalWrite(buzzer, HIGH); // Buzzer ON
+  } else {
+    digitalWrite(buzzer, LOW); // Buzzer OFF
+  }
+
+  delay(1000);
+}
+
 
